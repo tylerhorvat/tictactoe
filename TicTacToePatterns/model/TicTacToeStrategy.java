@@ -1,3 +1,9 @@
+/*
+ * Written by: Tyler Horvat
+ * CSC 335 Summer 2017 6/27/17
+ * This class picks a move in tic tac toe at random
+ */
+
 package model;
 
 // Use Java's Point class to store two ints: an x and a y

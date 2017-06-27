@@ -1,3 +1,9 @@
+/*
+ * Written by: Tyler Horvat
+ * CSC 335 Summer 2017 6/27/17
+ * This class attempts to win as many tic tac toe
+ * games as possible by implementing the minimax algorithm
+ */
 package model;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -25,11 +31,20 @@ public class StopperAI implements TicTacToeStrategy {
 	  char [][] newBoard;
 	  
 	  newBoard = board.clone();
+	  int [] checkWin = lookForWin(newBoard);
+	  
+	  if(checkWin[0] == 1) {
+		  System.out.println("Check win: " + checkWin[0]);
+		  return new Point(checkWin[1], checkWin[2]);
+	  }
 	  
       int [] moves = minimax(newBoard, 'O');
       
       return new Point(moves[1], moves[2]);
   }
+  
+  //this method implements the minimax algorithm, which attempts to find the 
+  //best possible move
   
   private int[] minimax(char [][] board, char player) {
 	  
@@ -95,6 +110,7 @@ public class StopperAI implements TicTacToeStrategy {
 	  return new int[]{moves.get(bestMove).getScore(), (int) moves.get(bestMove).getPoint().getX(), (int) moves.get(bestMove).getPoint().getY()};
   }
   
+  //this method looks for all possible moves
   private ArrayList<Point> emptyMoves(char [][] board) {
 	  
 	  ArrayList<Point> empty = new ArrayList<>();
@@ -109,6 +125,8 @@ public class StopperAI implements TicTacToeStrategy {
 	  return empty;	  
   }
   
+  //this method is a helper method for minimax, and looks for 
+  //a winner
   private boolean findLeader(char [][] board, char player) {
 	  
 	  if((board[0][0]  == player && board[0][1] == player && board[0][2] == player) ||
@@ -125,6 +143,34 @@ public class StopperAI implements TicTacToeStrategy {
 	  
 	  return false;
   }
+
+
+
+private int[] lookForWin(char [][] board) {
+	
+	if((board[0][0] == 'O' && board[0][1] == 'O') || (board[1][2] == 'O' && board[2][2] == 'O') || (board[1][1] == 'O' && board[2][0] == 'O'))
+		return new int[]{1, 0, 2};
+	else if((board[1][0] == 'O' && board[1][1] == 'O') || (board[0][2] == 'O' && board[2][2] == 'O'))
+		return new int[]{1, 1, 2};
+	else if((board[2][0] == 'O' && board[2][1] == 'O') || (board[0][2] == 'O' && board[1][2] == 'O') || (board[0][0] == 'O' && board[1][1] == 'O'))
+		return new int[]{1, 2, 2};
+	else if((board[0][0] == 'O' && board[0][2] == 'O') || (board[2][1] == 'O' && board[1][1] == 'O'))
+		return new int[]{1, 0, 1};
+	else if((board[0][0] == 'O' && board[2][2] == 'O') || (board[2][0] == 'O' && board[0][2] == 'O') ||
+	        (board[0][1] == 'O' && board[2][1] == 'O') || (board[1][0] == 'O' && board[1][2] == 'O'))
+		return new int[]{1, 1, 1};
+	else if((board[2][0] == 'O' && board[2][2] == 'O') || (board[0][1] == 'O' && board[1][1] == 'O'))
+		return new int[]{1, 2, 1};
+	else if((board[0][1] == 'O' && board[0][2] == 'O') || (board[1][0] == 'O' && board[2][0] == 'O') || (board[1][1] == 'O' && board[2][2] == 'O'))
+		return new int[]{1, 0, 0}; 
+	else if((board[1][1] == 'O' && board[1][2] == 'O') || (board[0][0] == 'O' && board[2][0] == 'O'))
+		return new int[]{1, 1, 0};
+	else if((board[0][0] == 'O' && board[1][0] == 'O') || (board[2][1] == 'O' && board[2][2] == 'O') || (board[1][1] == 'O' && board[0][2] == 'O'))
+		return new int[]{1, 2, 0};
+		
+	else
+	    return new int[]{-1};
+}
 
 }
 
