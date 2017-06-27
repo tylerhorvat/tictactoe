@@ -1,16 +1,15 @@
 package tests;
 
 import static org.junit.Assert.*;
-
+import org.junit.Test;
 import java.awt.Point;
-
 import model.ComputerPlayer;
 import model.RandomAI;
 import model.StopperAI;
 import model.TicTacToeGame;
 import model.IGotNowhereToGoException;
 
-import org.junit.Test;
+//import org.junit.Test;
 
 public class TestStrategies {
 

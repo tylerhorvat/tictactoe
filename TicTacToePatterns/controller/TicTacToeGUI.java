@@ -88,8 +88,9 @@ public class TicTacToeGUI extends Application {
     strategies.getItems().addAll(beginner, intermediate);
 
     MenuItem buttonV = new MenuItem("Button");
+    MenuItem textV = new MenuItem("TextArea");
     Menu views = new Menu("Views");
-    views.getItems().addAll(buttonV);
+    views.getItems().addAll(buttonV, textV);
 
     MenuItem newGame = new MenuItem("New Game");
     Menu options = new Menu("Options");
@@ -103,6 +104,7 @@ public class TicTacToeGUI extends Application {
     newGame.setOnAction(menuListener);
     beginner.setOnAction(menuListener);
     buttonV.setOnAction(menuListener);
+    textV.setOnAction(menuListener);
     intermediate.setOnAction(menuListener);
   }
 

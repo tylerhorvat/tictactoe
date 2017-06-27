@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Point;
+import java.util.Random;
 
 /**
  * This strategy selects the first available move at random.  It is easy to beat
@@ -17,7 +18,25 @@ public class RandomAI implements TicTacToeStrategy {
   // This should be easy to beat as a human. 
 
   @Override
-  public Point desiredMove(TicTacToeGame theGame) {
+  public Point desiredMove(TicTacToeGame theGame) 
+  	throws IGotNowhereToGoException {
+	  
+	  if(theGame.getMoveNumber() > 8)
+		  throw new IGotNowhereToGoException(null);
+	  
+	  boolean move = false;
+	  Random randomNum = new Random ();
+	  char[][] board = theGame.getTicTacToeBoard();
+	  
+	  while(!move) {
+		  int r = randomNum.nextInt(3);
+		  int c = randomNum.nextInt(3);
+		  
+		  if(board[r][c] == '_') {
+			  move = true;
+			  return new Point (r, c);  
+		  }		  
+	  }
     return null;
   }
 }

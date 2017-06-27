@@ -6,7 +6,11 @@ public class TicTacToeGame extends OurObservable {
   private char[][] board;
   private char nextChar;
   private int moveNumber;
-  private int size;
+  public int getMoveNumber() {
+	return moveNumber;
+}
+
+private int size;
   private ComputerPlayer computerPlayer;
 
   public TicTacToeGame() {
