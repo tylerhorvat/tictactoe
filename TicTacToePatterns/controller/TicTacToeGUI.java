@@ -1,3 +1,10 @@
+/*
+ * Updated by: Tyler Horvat
+ * CSC 335 Summer 2017 6/27/17
+ * Changes include the addition for a TextView
+ * menu option
+ */
+
 package controller;
 
 import javafx.application.Application;

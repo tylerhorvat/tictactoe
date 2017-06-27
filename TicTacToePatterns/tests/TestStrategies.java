@@ -175,8 +175,9 @@ public class TestStrategies {
 
     Point computerMove = playerWithStopperStrategy.desiredMove(theGame);
     theGame.choose(computerMove.x, computerMove.y);
-    assertEquals(2, computerMove.x);
     assertEquals(0, computerMove.y);
+    assertEquals(2, computerMove.x);
+    
   }
 
   @Test

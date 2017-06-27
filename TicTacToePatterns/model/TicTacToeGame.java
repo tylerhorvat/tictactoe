@@ -1,3 +1,9 @@
+/*
+ * Updated by: Tyler Horvat
+ * CSC 335 Summer 2017 6/27/17
+ * added getter method for moveNumber
+ */
+
 package model;
 
 import controller.OurObservable;

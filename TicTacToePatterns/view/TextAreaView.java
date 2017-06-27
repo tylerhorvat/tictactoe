@@ -1,8 +1,14 @@
+/*
+ * Written by: Tyler Horvat
+ * CSC 335 Summer 2017 6/27/17
+ * This class implements a GUI for tic tac toe
+ * where the user inputs row and column and clicks
+ * button to make a move
+ */
+
 package view;
 
-import java.awt.Insets;
 import java.awt.Point;
-import javax.swing.JPanel;
 import controller.OurObservable;
 import controller.OurObserver;
 import javafx.event.ActionEvent;
@@ -17,7 +23,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.ComputerPlayer;
 import model.TicTacToeGame;
-//import view.ButtonView.ButtonListener;
 
 public class TextAreaView extends BorderPane implements OurObserver {
 
@@ -47,7 +52,8 @@ public class TextAreaView extends BorderPane implements OurObserver {
     textRow.setMaxWidth(40);
     textColumn.setMaxWidth(40);
     
-    button = new Button(buttonLabel);
+    button = new Button();
+    button.setText(buttonLabel);
     button.setOnAction(handler);
     button.setMinWidth(80);
     
@@ -85,6 +91,7 @@ public class TextAreaView extends BorderPane implements OurObserver {
     updateLabelPanel();
   }
   
+  // this method updates view of board
   public void updateLabelPanel() {
 	    char[][] temp = theGame.getTicTacToeBoard();
 	    for (int r = 0; r < 3; r++) {
@@ -95,6 +102,7 @@ public class TextAreaView extends BorderPane implements OurObserver {
 	    }
 	  }
   
+  //this method sets up view of board
   private void initializeLabelPanel() {
 	    int size = theGame.size();
 	    Font myFont = new Font("Courier New", 30);
@@ -110,6 +118,7 @@ public class TextAreaView extends BorderPane implements OurObserver {
 	    }
 	  }
   
+    // this class implements an event handler for when button is clicked 
     private class ButtonListener implements EventHandler<ActionEvent> {
 
         @Override
@@ -133,7 +142,8 @@ public class TextAreaView extends BorderPane implements OurObserver {
         	if(theGame.stillRunning() &&  theGame.getTicTacToeBoard()[row][column] == '_')
                 theGame.choose(row, column);
             else {
-                return; // The clicked button was already chosen
+            	button.setText("Can't move there");
+                return; 
             }
         	
         	if (theGame.tied()) {

@@ -34,7 +34,12 @@ public class StopperAI implements TicTacToeStrategy {
 	  int [] checkWin = lookForWin(newBoard);
 	  
 	  if(checkWin[0] == 1) {
-		  System.out.println("Check win: " + checkWin[0]);
+		  return new Point(checkWin[1], checkWin[2]);
+	  }
+	  
+      checkWin = checkStop(newBoard);
+	  
+	  if(checkWin[0] == 1) {
 		  return new Point(checkWin[1], checkWin[2]);
 	  }
 	  
@@ -45,6 +50,8 @@ public class StopperAI implements TicTacToeStrategy {
   
   //this method implements the minimax algorithm, which attempts to find the 
   //best possible move
+  //note: this algorithm is not quite right as it will not
+  //select the best move when given a preset board
   
   private int[] minimax(char [][] board, char player) {
 	  
@@ -145,27 +152,62 @@ public class StopperAI implements TicTacToeStrategy {
   }
 
 
-
+//this method checks the board for an immediate win
 private int[] lookForWin(char [][] board) {
 	
-	if((board[0][0] == 'O' && board[0][1] == 'O') || (board[1][2] == 'O' && board[2][2] == 'O') || (board[1][1] == 'O' && board[2][0] == 'O'))
+	if(((board[0][0] == 'O' && board[0][1] == 'O') || (board[1][2] == 'O' && board[2][2] == 'O') || 
+	   (board[1][1] == 'O' && board[2][0] == 'O')) && board[0][2] == '_')
 		return new int[]{1, 0, 2};
-	else if((board[1][0] == 'O' && board[1][1] == 'O') || (board[0][2] == 'O' && board[2][2] == 'O'))
+	else if(((board[1][0] == 'O' && board[1][1] == 'O') || (board[0][2] == 'O' && board[2][2] == 'O')) && board[1][2] == '_')
 		return new int[]{1, 1, 2};
-	else if((board[2][0] == 'O' && board[2][1] == 'O') || (board[0][2] == 'O' && board[1][2] == 'O') || (board[0][0] == 'O' && board[1][1] == 'O'))
+	else if(((board[2][0] == 'O' && board[2][1] == 'O') || (board[0][2] == 'O' && board[1][2] == 'O') || 
+			 (board[0][0] == 'O' && board[1][1] == 'O')) && board[2][2] == '_')
 		return new int[]{1, 2, 2};
-	else if((board[0][0] == 'O' && board[0][2] == 'O') || (board[2][1] == 'O' && board[1][1] == 'O'))
+	else if(((board[0][0] == 'O' && board[0][2] == 'O') || (board[2][1] == 'O' && board[1][1] == 'O')) && board[0][1] == '_')
 		return new int[]{1, 0, 1};
-	else if((board[0][0] == 'O' && board[2][2] == 'O') || (board[2][0] == 'O' && board[0][2] == 'O') ||
-	        (board[0][1] == 'O' && board[2][1] == 'O') || (board[1][0] == 'O' && board[1][2] == 'O'))
+	else if(((board[0][0] == 'O' && board[2][2] == 'O') || (board[2][0] == 'O' && board[0][2] == 'O') ||
+	        (board[0][1] == 'O' && board[2][1] == 'O') || (board[1][0] == 'O' && board[1][2] == 'O')) && board[1][1] == '_')
 		return new int[]{1, 1, 1};
-	else if((board[2][0] == 'O' && board[2][2] == 'O') || (board[0][1] == 'O' && board[1][1] == 'O'))
+	else if(((board[2][0] == 'O' && board[2][2] == 'O') || (board[0][1] == 'O' && board[1][1] == 'O')) && board[2][1] == '_')
 		return new int[]{1, 2, 1};
-	else if((board[0][1] == 'O' && board[0][2] == 'O') || (board[1][0] == 'O' && board[2][0] == 'O') || (board[1][1] == 'O' && board[2][2] == 'O'))
+	else if(((board[0][1] == 'O' && board[0][2] == 'O') || (board[1][0] == 'O' && board[2][0] == 'O') ||
+			 (board[1][1] == 'O' && board[2][2] == 'O')) && board[0][0] == '_')
 		return new int[]{1, 0, 0}; 
-	else if((board[1][1] == 'O' && board[1][2] == 'O') || (board[0][0] == 'O' && board[2][0] == 'O'))
+	else if(((board[1][1] == 'O' && board[1][2] == 'O') || (board[0][0] == 'O' && board[2][0] == 'O')) && board[1][0] == '_')
 		return new int[]{1, 1, 0};
-	else if((board[0][0] == 'O' && board[1][0] == 'O') || (board[2][1] == 'O' && board[2][2] == 'O') || (board[1][1] == 'O' && board[0][2] == 'O'))
+	else if(((board[0][0] == 'O' && board[1][0] == 'O') || (board[2][1] == 'O' && board[2][2] == 'O') || 
+			 (board[1][1] == 'O' && board[0][2] == 'O')) && board[2][0] == '_')
+		return new int[]{1, 2, 0};
+		
+	else
+	    return new int[]{-1};
+}
+
+//check board for a needed stop
+private int[] checkStop(char [][] board) {
+	
+	if(((board[0][0] == 'X' && board[0][1] == 'X') || (board[1][2] == 'X' && board[2][2] == 'X') || 
+	   (board[1][1] == 'X' && board[2][0] == 'X')) && board[0][2] == '_')
+		return new int[]{1, 0, 2};
+	else if(((board[1][0] == 'X' && board[1][1] == 'X') || (board[0][2] == 'X' && board[2][2] == 'X')) && board[1][2] == '_')
+		return new int[]{1, 1, 2};
+	else if(((board[2][0] == 'X' && board[2][1] == 'X') || (board[0][2] == 'X' && board[1][2] == 'X') || 
+			 (board[0][0] == 'X' && board[1][1] == 'X')) && board[2][2] == '_')
+		return new int[]{1, 2, 2};
+	else if(((board[0][0] == 'X' && board[0][2] == 'X') || (board[2][1] == 'X' && board[1][1] == 'X')) && board[0][1] == '_')
+		return new int[]{1, 0, 1};
+	else if(((board[0][0] == 'X' && board[2][2] == 'X') || (board[2][0] == 'X' && board[0][2] == 'X') ||
+	        (board[0][1] == 'X' && board[2][1] == 'X') || (board[1][0] == 'X' && board[1][2] == 'X')) && board[1][1] == '_')
+		return new int[]{1, 1, 1};
+	else if(((board[2][0] == 'X' && board[2][2] == 'X') || (board[0][1] == 'X' && board[1][1] == 'X')) && board[2][1] == '_')
+		return new int[]{1, 2, 1};
+	else if(((board[0][1] == 'X' && board[0][2] == 'X') || (board[1][0] == 'X' && board[2][0] == 'X') ||
+			 (board[1][1] == 'X' && board[2][2] == 'X')) && board[0][0] == '_')
+		return new int[]{1, 0, 0}; 
+	else if(((board[1][1] == 'X' && board[1][2] == 'X') || (board[0][0] == 'X' && board[2][0] == 'X')) && board[1][0] == '_')
+		return new int[]{1, 1, 0};
+	else if(((board[0][0] == 'X' && board[1][0] == 'X') || (board[2][1] == 'X' && board[2][2] == 'X') || 
+			 (board[1][1] == 'X' && board[0][2] == 'X')) && board[2][0] == '_')
 		return new int[]{1, 2, 0};
 		
 	else
