@@ -1,7 +1,7 @@
 package view;
 
 import java.awt.Point;
-
+//written by tyler horvat
 import controller.OurObservable;
 import controller.OurObserver;
 import javafx.event.ActionEvent;
