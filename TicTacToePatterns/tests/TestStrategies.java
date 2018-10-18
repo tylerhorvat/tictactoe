@@ -9,8 +9,6 @@ import model.StopperAI;
 import model.TicTacToeGame;
 import model.IGotNowhereToGoException;
 
-//import org.junit.Test;
-
 public class TestStrategies {
 
   @Test(expected = IGotNowhereToGoException.class)
